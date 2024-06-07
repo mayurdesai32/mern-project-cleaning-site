@@ -35,6 +35,7 @@ const createEmployee = wrapAsync(async (req, res, next) => {
 
   await Employee.create({
     userId,
+    name: employee.name,
     email: employee.email,
     allService,
   });

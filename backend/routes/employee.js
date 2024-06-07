@@ -63,16 +63,6 @@ router.delete(
 
 router.get("/getemployeebyservice/:serviceId", getEmployeebyService);
 
-// review the employee
-
-// router
-//   .route("/serviceimage/:id")
-//   .post(
-//     authenticateUser,
-//     authorizeRoles("admin"),
-//     singleUpload,
-//     addServiceImage
-//   )
-//   .delete(authenticateUser, authorizeRoles("admin"), deleteServiceImage);
+// review
 
 module.exports = router;

@@ -70,9 +70,8 @@ const updateService = wrapAsync(async (req, res, next) => {
 
   if (name) service.name = name;
   if (description) service.description = description;
-  // if (category) product.category = category;
+
   if (price) service.price = price;
-  // if (stock) product.stock = stock;
 
   await service.save();
 
