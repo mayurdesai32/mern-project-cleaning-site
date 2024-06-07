@@ -7,6 +7,10 @@ const employeeSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  name: {
+    type: String,
+    required: [true, "Please enter the name"],
+  },
   email: {
     type: String,
     required: [true, "Please enter the email"],
@@ -22,31 +26,31 @@ const employeeSchema = new mongoose.Schema({
       },
     },
   ],
-  numOfReviews: {
-    type: Number,
-    default: 0,
-  },
-  reviews: [
-    {
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      rating: {
-        type: Number,
-        required: true,
-      },
-      comment: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  // numOfReviews: {
+  //   type: Number,
+  //   default: 0,
+  // },
+  // reviews: [
+  //   {
+  //     user: {
+  //       type: mongoose.Schema.ObjectId,
+  //       ref: "User",
+  //       required: true,
+  //     },
+  //     name: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //     rating: {
+  //       type: Number,
+  //       required: true,
+  //     },
+  //     comment: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //   },
+  // ],
   timeBookingPending: [
     {
       day: {

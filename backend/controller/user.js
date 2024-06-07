@@ -193,8 +193,8 @@ const updateByUser = wrapAsync(async (req, res, next) => {
     // role
   } = req.body;
 
-  if (name) user.name = name;
-  if (email) user.email = email;
+  if (name && role !== "employee") user.name = name;
+  if (email && role !== "employee") user.email = email;
   if (address) user.address = address;
   if (city) user.city = city;
   if (country) user.country = country;

@@ -6,20 +6,15 @@ const AppError = require("../error_handler/AppError");
 const wrapAsync = require("../error_handler/AsyncError");
 const Employee = require("../models/employeeSchema");
 const sendEmail = require("../utils/sendEmail");
+const Service = require("../models/serviceSchema");
 
 // to place an order
 const newOrder = wrapAsync(async (req, res, next) => {
   const {
     clientInfo,
-    // clientId,
     serviceId,
-    serviceName,
     employeeId,
-    employeeName,
-    servicePrice,
-    taxPrice,
     remark = "",
-    totalAmount,
     bookingDay,
     bookingMonth,
     bookingYear,
@@ -29,18 +24,18 @@ const newOrder = wrapAsync(async (req, res, next) => {
   if (
     !clientInfo ||
     !serviceId ||
-    !serviceName ||
     !employeeId ||
-    !employeeName ||
     !bookingDay ||
     !bookingMonth ||
     !bookingYear ||
-    !bookingTimeSlot ||
-    !servicePrice ||
-    !taxPrice ||
-    !totalAmount
+    !bookingTimeSlot
   ) {
     return next(new AppError("some of the input fields is missing", 401));
+  }
+  const service = await Service.findById(serviceId);
+
+  if (!service) {
+    return next(new AppError(" service Id is not valid", 401));
   }
 
   const employee = await Employee.findById(employeeId);
@@ -73,13 +68,13 @@ const newOrder = wrapAsync(async (req, res, next) => {
     clientInfo,
     clientId: req.rootUser._id,
     serviceId,
-    serviceName,
+    serviceName: service.name,
     employeeId,
-    employeeName,
-    servicePrice,
-    taxPrice,
+    employeeName: employee.name,
+    servicePrice: service.price,
+    taxPrice: service.price * 0.18,
     remark,
-    totalAmount,
+    totalAmount: service.price + service.price * 0.18,
     bookingDay,
     bookingMonth,
     bookingYear,
